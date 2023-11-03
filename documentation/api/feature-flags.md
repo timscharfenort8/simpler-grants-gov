@@ -9,7 +9,7 @@ and also allow for overriding it via headers in the API endpoints.
 
 Naming of feature flags has the following convention:
 * Environment variables are always snake-case all-caps like `ENABLE_OPPORTUNITY_LOG_MSG`
-* Header fields are always prefixed with `X-FF` and are capitalized-kebab-cased like `X-FF-Enable-Opportunity-Log-Msg`
+* Header fields are always prefixed with `FF` and are capitalized-kebab-cased like `FF-Enable-Opportunity-Log-Msg`
 
 The configuration internally within the API helps setup these values and maintain consistency.
 
@@ -24,7 +24,7 @@ class FeatureFlag(StrEnum):
     # ... Existing flags
 
     # This will be used as:
-    # Header: X-FF-Enable-Opportunity-Log-Msg
+    # Header: FF-Enable-Opportunity-Log-Msg
     # EnvVar: ENABLE_OPPORTUNITY_LOG_MSG
     ENABLE_OPPORTUNITY_LOG_MSG = "enable_opportunity_log_msg"
 ```
@@ -55,7 +55,7 @@ a Marshmallow schema like so:
 
 ```py
 class OpportunitySearchHeaderSchema(request_schema.OrderedSchema):
-    # Header field: X-FF-Enable-Opportunity-Log-Msg
+    # Header field: FF-Enable-Opportunity-Log-Msg
     # data_key is what the field will be set as in the request
     enable_opportunity_log_msg = fields.Boolean(
         data_key=FeatureFlag.ENABLE_OPPORTUNITY_LOG_MSG.get_header_name(),
@@ -107,7 +107,7 @@ def opportunity_search(
 
 | Environment Variable       | Header Field | Description |
 |----------------------------| ------------ |-------------|
-| ENABLE_OPPORTUNITY_LOG_MSG | X-FF-Enable-Opportunity-Log-Msg | Placeholder for the implementation of the feature flag logic, just causes a small log message. |
+| ENABLE_OPPORTUNITY_LOG_MSG | FF-Enable-Opportunity-Log-Msg | Placeholder for the implementation of the feature flag logic, just causes a small log message. |
 
 
 # Future Enhancements
