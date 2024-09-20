@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { axe } from "jest-axe";
-import PageNotFound from "src/pages/404";
+import PageNotFound from "src/app/not-found";
 
 describe("PageNotFound", () => {
   it("renders alert with grants.gov link", () => {
