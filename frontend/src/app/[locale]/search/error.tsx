@@ -98,6 +98,7 @@ export default function Error({ error }: ErrorProps) {
                 category={category}
                 fundingInstrument={fundingInstrument}
                 agency={agency}
+                test={""}
               />
             </ContentDisplayToggle>
           </div>

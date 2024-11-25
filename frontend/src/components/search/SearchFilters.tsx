@@ -1,3 +1,5 @@
+import { environment } from "src/constants/environments";
+
 import { useTranslations } from "next-intl";
 
 import SearchFilterAccordion from "src/components/search/SearchFilterAccordion/SearchFilterAccordion";
@@ -15,18 +17,21 @@ export default function SearchFilters({
   agency,
   category,
   opportunityStatus,
+  test,
 }: {
   fundingInstrument: Set<string>;
   eligibility: Set<string>;
   agency: Set<string>;
   category: Set<string>;
   opportunityStatus: Set<string>;
+  test: string;
 }) {
   const t = useTranslations("Search");
+  console.log("!!! server side component", process.env.NEXT_PUBLIC_RUN_TIME);
 
   return (
     <>
-      <SearchOpportunityStatus query={opportunityStatus} />
+      <SearchOpportunityStatus query={opportunityStatus} test={test} />
       <SearchFilterAccordion
         filterOptions={fundingOptions}
         query={fundingInstrument}

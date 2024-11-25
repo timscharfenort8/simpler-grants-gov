@@ -8,9 +8,18 @@ WORKDIR /frontend
 COPY package.json package-lock.json ./
 COPY public ./public
 COPY scripts ./scripts
-RUN npm ci --no-audit \
-  # Remove dev packages not removed by `npm prune` maybe from older storybook?
-  && rm -rf /frontend/node_modules/@esbuild
+
+# Update system and install security updates
+RUN apt-get update \
+  && apt-get upgrade -y --no-install-recommends \
+  && apt-get install -y --only-upgrade libc-bin libc6 chromium \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+
+
+RUN npm ci --no-audit
 
 # =============================================================================
 # Development stage
@@ -43,6 +52,8 @@ COPY *.config.js .
 COPY *.d.ts .
 COPY src ./src
 
+ARG NEXT_PUBLIC_BUILD_TIME
+ENV NEXT_PUBLIC_BUILD_TIME=${NEXT_PUBLIC_BUILD_TIME}
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Skip lint because it should have happened in the CI already
@@ -53,13 +64,6 @@ RUN npm run build -- --no-lint
 # Use clean image for release, excluding any unnecessary files or dependencies
 FROM node:20-bullseye-slim AS release
 WORKDIR /frontend
-
-# Update system and install security updates
-RUN apt-get update \
-  && apt-get upgrade -y --no-install-recommends \
-  && apt-get install -y --only-upgrade libc-bin libc6 \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /frontend/.next/cache/images/
 VOLUME ["/frontend/.next/cache/images/"]
@@ -107,6 +111,8 @@ ARG SENDY_API_URL
 ENV SENDY_API_URL=${SENDY_API_URL}
 ARG SENDY_LIST_ID
 ENV SENDY_LIST_ID=${SENDY_LIST_ID}
+ARG NEXT_PUBLIC_RUN_TIME
+ENV NEXT_PUBLIC_RUN_TIME=${NEXT_PUBLIC_RUN_TIME}
 
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV PORT 3000

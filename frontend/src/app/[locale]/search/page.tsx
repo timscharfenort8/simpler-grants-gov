@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import QueryProvider from "src/app/[locale]/search/QueryProvider";
+import { environment } from "src/constants/environments";
 import withFeatureFlag from "src/hoc/search/withFeatureFlag";
 import { SearchParamsTypes } from "src/types/search/searchRequestTypes";
 import { Breakpoints } from "src/types/uiTypes";
@@ -25,6 +26,7 @@ export async function generateMetadata() {
 function Search({ searchParams }: { searchParams: SearchParamsTypes }) {
   unstable_setRequestLocale("en");
   const t = useTranslations("Search");
+  console.log("!!! page reference", environment.NEXT_PUBLIC_RUN_TIME);
 
   const convertedSearchParams = convertSearchParamsToProperTypes(searchParams);
   const { agency, category, eligibility, fundingInstrument, query, status } =
@@ -56,6 +58,7 @@ function Search({ searchParams }: { searchParams: SearchParamsTypes }) {
                   category={category}
                   fundingInstrument={fundingInstrument}
                   agency={agency}
+                  test={environment.NEXT_PUBLIC_RUN_TIME}
                 />
               </ContentDisplayToggle>
             </div>

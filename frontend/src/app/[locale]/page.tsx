@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { environment } from "src/constants/environments";
 
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
@@ -18,6 +19,7 @@ export async function generateMetadata() {
 
 export default function Home() {
   unstable_setRequestLocale("en");
+
   return (
     <>
       <Hero />

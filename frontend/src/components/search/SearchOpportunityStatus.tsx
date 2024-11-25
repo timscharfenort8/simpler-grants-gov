@@ -1,6 +1,7 @@
 "use client";
 
 import { QueryContext } from "src/app/[locale]/search/QueryProvider";
+import { environment } from "src/constants/environments";
 import { SEARCH_NO_STATUS_VALUE } from "src/constants/search";
 import { useSearchParamUpdater } from "src/hooks/useSearchParamUpdater";
 
@@ -16,11 +17,27 @@ interface StatusOption {
 
 interface SearchOpportunityStatusProps {
   query: Set<string>;
+  test: string;
 }
 
 export default function SearchOpportunityStatus({
   query,
+  test,
 }: SearchOpportunityStatusProps) {
+  console.warn("!!! client component prop", test);
+  console.warn(
+    "!!! client side run imported",
+    environment.NEXT_PUBLIC_RUN_TIME,
+  );
+  console.warn(
+    "!!! client side BUILD imported",
+    environment.NEXT_PUBLIC_BUILD_TIME,
+  );
+  console.warn("!!! client side run direct", process.env.NEXT_PUBLIC_RUN_TIME);
+  console.warn(
+    "!!! client side BUILD direct",
+    process.env.NEXT_PUBLIC_BUILD_TIME,
+  );
   const { queryTerm } = useContext(QueryContext);
   const { updateQueryParams } = useSearchParamUpdater();
 
