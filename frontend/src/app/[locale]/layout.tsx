@@ -79,7 +79,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         hasToRemoveScriptWrapper: true,
         allowTransactionlessInjection: true,
       })
-    : "";
+    : "there's nothing here";
 
   return (
     <html lang={locale} suppressHydrationWarning>

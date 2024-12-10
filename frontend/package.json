@@ -7,6 +7,7 @@
   },
   "scripts": {
     "all-checks": "npm run lint && npm run ts:check && npm run test && npm run build",
+    "copy-static": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
     "build": "next build",
     "dev": "NEW_RELIC_ENABLED=false next dev",
     "dev:nr": "NODE_OPTIONS='-r @newrelic/next' next dev",
@@ -16,7 +17,8 @@
     "lint": "next lint --dir src --dir stories --dir .storybook --dir tests --dir scripts --dir frontend --dir lib --dir types",
     "lint-fix": "npm run lint -- --fix",
     "postinstall": "node ./scripts/postinstall.js",
-    "start:nr": "NODE_OPTIONS= '-r @newrelic/next' next start -p ${PORT:-3000}",
+    "start:nr": "NODE_OPTIONS='-r newrelic' next start -p ${PORT:-1337}",
+    "start:standalone": "node ./next/standalone/server.js",
     "start": "next start -p ${PORT:-3000}",
     "storybook": "storybook dev -p 6006",
     "storybook-build": "storybook build",

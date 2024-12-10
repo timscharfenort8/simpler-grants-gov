@@ -5,8 +5,6 @@ locals {
   default_extra_environment_variables = {
     # see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#agent-enabled
     NEW_RELIC_ENABLED = "true"
-    # see https://github.com/newrelic/node-newrelic?tab=readme-ov-file#setup
-    NODE_OPTIONS = "-r newrelic"
   }
 
   # Configuration for secrets
