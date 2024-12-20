@@ -49,13 +49,7 @@ interface NewRelicWithCorrectTypes extends NRType {
   ) => string;
 }
 
-const locales = ["en", "es"];
-
 const typedNewRelic = newrelic as NewRelicWithCorrectTypes;
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = params;

@@ -55,10 +55,6 @@ export async function generateMetadata({
   return meta;
 }
 
-export function generateStaticParams() {
-  return [];
-}
-
 function emptySummary() {
   return {
     additional_info_url: null,
